@@ -1,0 +1,64 @@
+#Import maya commands
+
+import maya.cmds as cmds
+import mtoa.utils as mutils
+
+#Variables :
+	
+
+
+
+
+#Creation of a new UI for the "Modeling" Tab 
+
+def Modeling_tab(args):
+	myWin = cmds.window(title="Modeling tab", widthHeight=(200, 200), sizeable=True)
+	cmds.columnLayout()
+	cmds.button(label="BACKGROUND_01",w=250,h=80, command=createplane_01)
+	cmds.button(label="BACKGROUND_02",w=250,h=80, command=createplane_02)
+	cmds.button(label="BACKGROUND_03",w=250,h=80, command=createplane_03)
+	cmds.showWindow(myWin)
+		
+#Creation of my fonction for the modeling tab
+
+def createplane_01(args):
+	cmds.file("D:\OTHERS\RESOURCES\BACKGROUND_GEO\studio_background_01_loc.ma", i=True)
+
+def createplane_02(args):
+	cmds.file("D:\OTHERS\RESOURCES\BACKGROUND_GEO\studio_background_02_loc.ma", i=True)    
+
+def createplane_03(args):
+	cmds.file("D:\OTHERS\RESOURCES\BACKGROUND_GEO\studio_background_03_loc.ma", i=True)
+
+
+#Creation of a new UI for the "Lookdev" Tab 
+
+def Lookdev_tab(args):
+	myWin = cmds.window(title="Lookdev", widthHeight=(200, 200), sizeable=True)
+	cmds.columnLayout()
+	cmds.button(label="Create_Hdri",w=250,h=80, command=create_hdri_01)
+	cmds.showWindow(myWin)
+		
+
+#Creation of my fonction for the Lookdev_tab
+
+def create_hdri_01(args):
+	skydome = mutils.createLocator('aiSkyDomeLight', asLight=True)
+	
+
+# Main Window interface ( brain ) !!!
+
+#######################################################################################
+if cmds.window(showUI, exists = True):
+            cmds.deleteUI(self.window, window=True)
+        
+def showUI():
+    myWin = cmds.window(title='Romain_Kit', widthHeight=(250, 320), sizeable=False)
+    cmds.columnLayout()
+    cmds.button(label="Modeling",w=250,h=80, command=Modeling_tab)
+    cmds.button(label="Shading", w=250,h=80, command=Lookdev_tab)
+    cmds.button(label="Lookdev",w=250,h=80, command=Lookdev_tab)
+    cmds.button(label="Other",w=250,h=80, command=Modeling_tab)
+    cmds.showWindow(myWin)
+
+showUI()
